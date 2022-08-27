@@ -6,15 +6,13 @@
 /*   By: jmenezes <jmenezes@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 00:20:47 by jmenezes          #+#    #+#             */
-/*   Updated: 2022/08/27 00:44:40 by jmenezes         ###   ########.fr       */
+/*   Updated: 2022/08/27 01:55:07 by jmenezes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <signal.h>
 #include <unistd.h>
-
-int		ft_atoi(char *nbr);
-void	ft_puterror(char *msg);
 
 void	send_message(pid_t srvpid, char *msg)
 {

@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmenezes <jmenezes@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/25 14:13:20 by jmenezes          #+#    #+#             */
-/*   Updated: 2022/08/25 14:42:51 by jmenezes         ###   ########.fr       */
+/*   Created: 2022/08/27 01:14:17 by jmenezes          #+#    #+#             */
+/*   Updated: 2022/08/27 01:14:22 by jmenezes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	ft_isspace(int c)
-{
-	return (c == ' '
-		|| c == '\f'
-		|| c == '\n'
-		|| c == '\r'
-		|| c == '\t'
-		|| c == '\v');
-}
-
-static int	ft_isdigit(int c)
-{
-	return (c >= '0' && c <= '9');
-}
+#include "libft.h"
 
 int	ft_atoi(const char *nbr)
 {

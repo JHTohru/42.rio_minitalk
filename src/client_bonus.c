@@ -6,20 +6,18 @@
 /*   By: jmenezes <jmenezes@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 23:41:24 by jmenezes          #+#    #+#             */
-/*   Updated: 2022/08/27 00:47:51 by jmenezes         ###   ########.fr       */
+/*   Updated: 2022/08/27 02:25:37 by jmenezes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-int		ft_atoi(char *nbr);
-void	ft_puterror(char *str);
-
 static void	send_message(pid_t srvpid, char *msg)
 {
-	int		i;
+	int	i;
 
 	while (1)
 	{

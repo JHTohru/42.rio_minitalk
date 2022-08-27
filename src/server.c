@@ -6,15 +6,13 @@
 /*   By: jmenezes <jmenezes@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 00:42:27 by jmenezes          #+#    #+#             */
-/*   Updated: 2022/08/27 00:45:03 by jmenezes         ###   ########.fr       */
+/*   Updated: 2022/08/27 01:55:19 by jmenezes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <signal.h>
 #include <unistd.h>
-
-void	ft_putchar(char c);
-void	ft_putnbrln(int n);
 
 void	handle_signal(int sig)
 {
