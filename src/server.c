@@ -6,7 +6,7 @@
 /*   By: jmenezes <jmenezes@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 00:42:27 by jmenezes          #+#    #+#             */
-/*   Updated: 2022/08/27 01:55:19 by jmenezes         ###   ########.fr       */
+/*   Updated: 2022/08/27 23:42:38 by jmenezes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ void	handle_signal(int sig)
 	static char	buffer;
 	static int	bitidx;
 
-	if (sig == SIGUSR1)
-		buffer &= (0xff - (0x80 >> (bitidx % 7 + 1)));
-	else
-		buffer |= (0x80 >> (bitidx % 7 + 1));
+	if (sig == SIGUSR2)
+		buffer |= 0x80 >> (bitidx + 1);
 	bitidx++;
 	if (bitidx == 7)
 	{
@@ -30,6 +28,7 @@ void	handle_signal(int sig)
 			buffer = '\n';
 		ft_putchar(buffer);
 		bitidx = 0;
+		buffer = '\0';
 	}
 }
 

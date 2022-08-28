@@ -6,16 +6,13 @@
 /*   By: jmenezes <jmenezes@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:13:05 by jmenezes          #+#    #+#             */
-/*   Updated: 2022/08/27 00:47:29 by jmenezes         ###   ########.fr       */
+/*   Updated: 2022/08/27 23:45:09 by jmenezes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <signal.h>
 #include <unistd.h>
-
-void	ft_putchar(char c);
-void	ft_putnbrln(int n);
-void	ft_putnstr(char *str, size_t n);
 
 static int	code_point_len(char *cp)
 {
@@ -28,43 +25,33 @@ static int	code_point_len(char *cp)
 	return (4);
 }
 
-static int	update_buffer(char *buffer, int *bitidx, int bitval)
-{
-	if (bitval)
-		buffer[*bitidx / 8] |= (0x80 >> (*bitidx % 8));
-	else
-		buffer[*bitidx / 8] &= (0xff - (0x80 >> (*bitidx % 8)));
-	if ((*bitidx + 1) % 8 == 0)
-	{
-		if ((*bitidx + 1) / 8 < code_point_len(buffer))
-		{
-			buffer[(*bitidx + 1) / 8] = 0x80;
-			*bitidx += 3;
-		}
-		else
-		{
-			*bitidx = 0;
-			if (buffer[0] == '\0')
-			{
-				ft_putchar('\n');
-				return (1);
-			}
-			ft_putnstr(buffer, code_point_len(buffer));
-		}
-	}
-	else
-		(*bitidx)++;
-	return (0);
-}
-
 static void	handle_signal(int sig, siginfo_t *info, void *context)
 {
 	static char	buffer[4];
 	static int	bitidx;
 
 	(void)context;
-	if (update_buffer(buffer, &bitidx, sig == SIGUSR2))
-		kill(info->si_pid, SIGUSR1);
+	if (sig == SIGUSR2)
+		buffer[bitidx / 8] |= 0x80 >> bitidx % 8;
+	if (++bitidx % 8 == 0)
+	{
+		if (bitidx / 8 == code_point_len(buffer))
+		{
+			if (buffer[0] == '\0')
+			{
+				buffer[0] = '\n';
+				kill(info->si_pid, SIGUSR1);
+			}
+			ft_putnstr(buffer, code_point_len(buffer));
+			bitidx = 0;
+			buffer[0] = '\0';
+		}
+		else
+		{
+			buffer[bitidx / 8] = 0x80;
+			bitidx += 2;
+		}
+	}
 }
 
 int	main(void)
