@@ -14,8 +14,8 @@
 
 int	ft_atoi(const char *nbr)
 {
-	int			sign;
-	long int	n;
+	int	sign;
+	int	n;
 
 	while (ft_isspace(*nbr))
 		nbr++;

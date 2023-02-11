@@ -12,28 +12,6 @@
 
 #include "libft.h"
 
-/*
-mag = 1
-n   = 12345
-
-mag = 10
-n   = 1234
-
-mag = 100
-n   = 123
-
-mag = 1000
-n   = 12
-
-mag = 10000
-n   = 1
-
-12345
-1234
-123
-12
-1
-*/
 static int	magnitude(int n)
 {
 	int	mag;

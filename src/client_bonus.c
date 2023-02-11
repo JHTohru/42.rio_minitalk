@@ -18,21 +18,20 @@
 static void	send_message(pid_t srvpid, char *msg)
 {
 	int	i;
+	int	sig;
 
 	while (1)
 	{
-		if ((*msg & 0xc0) == 0x80)
-			i = 2;
-		else
-			i = 0;
+		i = 0;
 		while (i < 8)
 		{
-			if ((*msg & (0x80 >> i)) == 0)
-				kill(srvpid, SIGUSR1);
+			if (*msg & (0x80 >> i))
+				sig = SIGUSR2;
 			else
-				kill(srvpid, SIGUSR2);
+				sig = SIGUSR1;
+			kill(srvpid, sig);
 			i++;
-			usleep(50);
+			usleep(1000);
 		}
 		if (*msg == '\0')
 			break ;

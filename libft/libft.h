@@ -29,10 +29,6 @@ void	ft_putnbr(int n);
 
 void	ft_putnbrln(int n);
 
-void	ft_putnstr(char *str, size_t n);
-
-void	ft_putstr(char *str);
-
 size_t	ft_strlen(char *str);
 
 #endif

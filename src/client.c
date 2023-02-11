@@ -21,7 +21,7 @@ void	send_message(pid_t srvpid, char *msg)
 
 	while (1)
 	{
-		i = 1;
+		i = 0;
 		while (i < 8)
 		{
 			if (*msg & (0x80 >> i))
@@ -30,7 +30,7 @@ void	send_message(pid_t srvpid, char *msg)
 				sig = SIGUSR1;
 			kill(srvpid, sig);
 			i++;
-			usleep(50);
+			usleep(1000);
 		}
 		if (*msg == '\0')
 			break ;

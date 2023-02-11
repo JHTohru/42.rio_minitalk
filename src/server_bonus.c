@@ -14,43 +14,25 @@
 #include <signal.h>
 #include <unistd.h>
 
-static int	code_point_len(char *cp)
-{
-	if ((cp[0] & 0x80) == 0)
-		return (1);
-	if ((cp[0] & 0xE0) == 0xC0)
-		return (2);
-	if ((cp[0] & 0xF0) == 0xE0)
-		return (3);
-	return (4);
-}
-
 static void	handle_signal(int sig, siginfo_t *info, void *context)
 {
-	static char	buffer[4];
-	static int	bitidx;
+	static unsigned char	buffer;
+	static int				bitidx;
 
 	(void)context;
 	if (sig == SIGUSR2)
-		buffer[bitidx / 8] |= 0x80 >> bitidx % 8;
-	if (++bitidx % 8 == 0)
+		buffer += 0x80 >> bitidx;
+	bitidx++;
+	if (bitidx == 8)
 	{
-		if (bitidx / 8 == code_point_len(buffer))
+		if (buffer == '\0')
 		{
-			if (buffer[0] == '\0')
-			{
-				buffer[0] = '\n';
-				kill(info->si_pid, SIGUSR1);
-			}
-			ft_putnstr(buffer, code_point_len(buffer));
-			bitidx = 0;
-			buffer[0] = '\0';
+			buffer = '\n';
+			kill(info->si_pid, SIGUSR1);
 		}
-		else
-		{
-			buffer[bitidx / 8] = 0x80;
-			bitidx += 2;
-		}
+		ft_putchar(buffer);
+		bitidx = 0;
+		buffer = '\0';
 	}
 }
 

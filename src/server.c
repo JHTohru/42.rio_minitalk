@@ -16,13 +16,13 @@
 
 void	handle_signal(int sig)
 {
-	static char	buffer;
-	static int	bitidx;
+	static unsigned char	buffer;
+	static int				bitidx;
 
 	if (sig == SIGUSR2)
-		buffer |= 0x80 >> (bitidx + 1);
+		buffer += 0x80 >> bitidx;
 	bitidx++;
-	if (bitidx == 7)
+	if (bitidx == 8)
 	{
 		if (buffer == '\0')
 			buffer = '\n';
