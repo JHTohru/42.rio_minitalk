@@ -48,16 +48,16 @@ clean:
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@rm -f $(CLIENT) $(SERVER)
+	@rm -f $(CLIENT) $(SERVER) $(CLIENT_BONUS) $(SERVER_BONUS)
 
 re: fclean all
 
 bonus: $(CLIENT_BONUS) $(SERVER_BONUS)
 
 $(CLIENT_BONUS): $(CLIENT_BONUS_OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) -I $(LIBFT_DIR) -o $(CLIENT) $^
+	@$(CC) $(CFLAGS) -I $(LIBFT_DIR) -o $@ $^
 
 $(SERVER_BONUS): $(SERVER_BONUS_OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) -I $(LIBFT_DIR) -o $(SERVER) $^
+	@$(CC) $(CFLAGS) -I $(LIBFT_DIR) -o $@ $^
 
-.PHONY: $(CLIENT_BONUS), $(SERVER_BONUS), all, clean, fclean, re, bonus
+.PHONY: $(CLIENT_BONUS), $(SERVER_BONUS), all, clean, fclean, re
